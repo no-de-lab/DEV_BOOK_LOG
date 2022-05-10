@@ -34,7 +34,7 @@ URL을 통해 IP 주소를 알아내고, 포트번호를 통해 목적지를 정
 - 프락시(중재자) -> 서버와 클라이언트 사이에서 정보 필터링을 해주는 친구
 - 캐시 -> 자주 말할 것 같아서 아예 외워두는 인삿말 같은 것
 - 게이트웨이(서버들의 중개자) -> 서버도 아니면서 서버인것처럼.
-- 터널 [https://docs.oracle.com/cd/E19438-01/820-6316/adyef/index.html](https://docs.oracle.com/cd/E19438-01/820-6316/adyef/index.html)
+- 터널 [터널](https://docs.oracle.com/cd/E19438-01/820-6316/adyef/index.html)
 - 에이전트 -> 사용자에 의한, 사용자를 위한, 사용자의 http 요청
 
 ---
