@@ -1,6 +1,5 @@
 # DEV_BOOK_LOG
 
----
 
 ## 🌎 규칙 
 `매주 월요일 저녁 9시, 최대 1시간 정도 BOOK Review 진행`
