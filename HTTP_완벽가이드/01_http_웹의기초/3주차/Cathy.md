@@ -119,5 +119,7 @@ tcp data piece 0 ~
 
 - [TCP 특성](https://physicallaw.tistory.com/112#:~:text=TCP%EB%8A%94%20%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A5%BC%20%EC%A0%84%EC%86%A1%ED%95%A0,%EC%A7%80%ED%96%A5%EC%84%B1(Stream%20Orientation)%EC%9D%B4%EB%8B%A4.)
 
-
+- [소켓 프로그래밍](https://recipes4dev.tistory.com/153)
 - [소켓과 소켓 프로그래밍 개념](https://velog.io/@devsh/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%EA%B8%B0%EC%B4%88-%EA%B0%9C%EB%85%90-%EC%A0%95%EB%A6%AC%ED%95%98%EA%B8%B0-%EC%86%8C%EC%BC%93%EA%B3%BC-%EC%86%8C%EC%BC%93-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EA%B0%9C%EB%85%90)
+
+-[커넥션관리](https://jizard.tistory.com/348)
