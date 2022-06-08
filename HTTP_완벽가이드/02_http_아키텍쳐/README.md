@@ -4,3 +4,6 @@
 
 ## 5주차 Chapter 02. HTTP 아키텍쳐
   6. 프락시 
+
+## 6주차 Chapter 02. HTTP 아키텍쳐
+  7. 캐시
