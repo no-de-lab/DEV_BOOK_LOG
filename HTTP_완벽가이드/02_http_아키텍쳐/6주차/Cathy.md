@@ -39,23 +39,50 @@
 - 캐시망 콘턴츠 라우팅, 피어링 
 
 ### 캐시 처리단계 
-- 요청받기
-- 파싱
+- 요청받기 & 파싱
+  - 요청 메시지를 읽는다. 메시지를 파싱하여 URL과 헤더들을 추출
 - 검색
+  - 요청에 대응하는 로컬 복사본이 있는지 검사하고, 사본이 없다면 서버에서 데이터를 받아온다.(그리고 복사본을 로컬에 저장한다.) 사본이 있다면 다음 단계를 진행
   - 탐색? 검색 알고리즘 사용?  
 - 신선도 검사
+  - 캐시된 사본이 신선한지 검사
 - 응답 생성
-- 전송
-- 로깅
+  - 새로운 헤더와 캐시된 본문으로 응답 메세지를 만든다. 캐시는 클라이언트에 맞게 헤더를 수정해야함, 신선도 정보(Cache-Control, Age, Expires 등)를 삽입하며, 요청이 프락시 캐시를 거쳐갔음을 알려주기 위해 종종 Via헤더를 포함
+- 전송 : 캐시는 네트워크를 통해 응답을 클라이언트에 돌려줌
+- 로깅 : 로그파일에 트랜잭션에 대해 서술한 로그
 
 ### 사본 신선유지 
-- ```Cache-control, Expires``` 특별헤더 이용하여 유효기간 
+- 문서만료
+  - ```Cache-control, Expires``` 특별헤더 이용하여 유효기간을 붙임
   - ```Expires``` JWT 토큰관리 할때 종종 사용한듯..  
 - 서버재검사 
+  - If-Modified-Since: 날짜 재검사
+  - If-None-Match: 엔티티 태그 재검사
   - next.js 의 revalidate ? 같은 것 ? 
+
+
+### 캐시 제어
+HTTP는 문서가 만료되기 전까지 얼마나 오랫동안 캐시될 수 있게 할 것인지 서버가 설정할 수 있는 여러 가지 방법
+
+- Cache-Control: no-store
+  - 캐시가 response의 사본 만드는 것 금지
+- Cache-Control: no-cache
+  - 로컬 캐시 저장소에 저장될 수 있음, _서버와 재검사를 하지 않고서는_  캐시에서 클라로 제공될 수 없음
+- Cache-Control: must-revalidate
+ -  만료 정보를 엄격하게 따르길 원한다면 must-revalidate 응답 헤더
+ - 신선도 검사를 시도했을 때 원서버가 사용할 수 없는 상태라면캐시는 반드시 504 Gateway Timeout error를 반환
+
+- Cache-Control: max-age
+  - ```max-age``` 신선한 캐시문서가 서버로부터 온 이후 흐른 시간
+  - ```max-age=0``` 0으로 설정함으로써, 캐시가 매 접근마다 문서를 캐시/리프레시 하지 않도록 요청할 수 있음
+- Expires 날짜
+  - 신선도 수명의 근삿값은 만료일과 생성일의 초 단위 시간차를 계산하여 얻을 수 있음
+- 헤더에 아무 정보도 없다면, 캐시는 (휴리스틱) 방법으로 만료 결정
+
+
 
 
 ### 참고자료
 [웹 캐시(Web Cache; 프록시 서버)를 통한 응답 속도 향상 원리 이해하기](https://studyandwrite.tistory.com/431)
-
+[If-Match,If-Modified-Since,If-None-Match](https://withbundo.blogspot.com/2017/07/http-13-http-iii-if-match-if-modified.html)
 
