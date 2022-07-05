@@ -38,8 +38,8 @@ Authorization 헤더로 사용자 식별
 ### 쿠키
 식별하는 방법들 중 가장 널리 사용하는 방식
 지속 쿠키는 브라우저 종료, 하드웨어 재시작에도 남아있음.
-세션 쿠키는 브라우저 종료시 만료
-localStorage, sessionStorage?  
+세션 쿠키는 브라우저 종료시 만료  
+-> 현재는 쿠키보다 웹스토리지를 사용자 식별로 사용하고 있음.
 
 클라이언트 측 상태  
 - creation_utc: 쿠키가 생성된 시점
@@ -83,4 +83,5 @@ localStorage, sessionStorage?
 ## 참고
 - [HTTP쿠키와 톰캣 쿠키 프로세서 이야기](https://meetup.toast.com/posts/209)
 - [JWT를 이해하기 전 Basic, Bearer 방식](https://iseunghan.tistory.com/364)
+- [쿠키, 세션, 웹스토리지](https://doqtqu.tistory.com/306)
 
