@@ -104,9 +104,31 @@ weight라고 부르는 _상대적인 퀄리티 값을 사용하여 표현한 선
   - If-Match : ETag 같으면
   - If-None-Match : ETag 다르면
 
+약한 검사기
+  - 객체의 바이트 단위 크기로 검사
+강한 검사기
+  - 언제나 고유하게 식별
+  - 리소스의 콘텐츠에 대한 암호 체크섬(MD5)
+
+델타인코딩
+델타 인코딩이란 연속적인 데이터들을 그대로 저장하지 않고, 그 데이터들 사이의 차이(difference)만을 데이터로 저장하는 방법
+변경된 부분에 대해서만 통신하여 전송량을 최적화하는 HTTP 프로토콜 확장 
+A-IM (Accept-Instance-Manipulation)
+클라 A-IM헤더로 델타를 받아들인다는 것을 서버에 전송
+서버에서는 델타 응답메세지를 클라에 전송
+  - 226 IM Used 특별 응답코드 
+  - 헤더에 델타를 계산하기 위해 사용된 알고리즘 명시(IM)
+
+> git diff 같은것도 델타 인코딩을 이용해서 다른코드를 분별
+> 비디오 압축에서 델타 프레임은 프레임 크기를 상당히 줄일 수 있으며 거의 ​​모든 비디오 압축 코덱 에서 사용됩
 
 
+----- 
 
+https://codedreamer.tistory.com/entry/vcdiff
+https://wiko.wiki/wiki/Delta_encoding
+번외 
+https://devblog.tistory.com/entry/Chapter-02-%EB%8F%99%EC%98%81%EC%83%81%EC%9D%98-%EC%95%95%EC%B6%95%EC%9B%90%EB%A6%AC
 
 
 
