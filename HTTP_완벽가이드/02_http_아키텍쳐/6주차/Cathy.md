@@ -85,4 +85,4 @@ HTTP는 문서가 만료되기 전까지 얼마나 오랫동안 캐시될 수 �
 ### 참고자료
 [웹 캐시(Web Cache; 프록시 서버)를 통한 응답 속도 향상 원리 이해하기](https://studyandwrite.tistory.com/431)
 [If-Match,If-Modified-Since,If-None-Match](https://withbundo.blogspot.com/2017/07/http-13-http-iii-if-match-if-modified.html)
-
+[분산 웹 캐시](https://tech.kakao.com/2017/10/23/wcache-1/)
