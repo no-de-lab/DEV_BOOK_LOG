@@ -61,7 +61,7 @@ LACP가 연결되려면 한 LACPDU안에서 정보를 주고 받아야함. (상�
 
 
 
-(LACP)[https://ja-gamma.tistory.com/entry/LACP%EA%B0%9C%EB%85%90%EB%8F%99%EC%9E%91%EC%9B%90%EB%A6%AC]
+[LACP](https://ja-gamma.tistory.com/entry/LACP%EA%B0%9C%EB%85%90%EB%8F%99%EC%9E%91%EC%9B%90%EB%A6%AC)
 
 
 
@@ -98,7 +98,7 @@ MC-LAG 도메인: 두 피어 장비를 하나의 논리 장비로 구성하기 �
 게이트웨이 이중화 프로토콜 (FHRP:First Hop Redundancy Protocols)
 FHRP는 다수의 라우터를 하나의 Group으로 묶어서 우회경로를 제공하여 서비스의 연속성을 가능하게함
 
-(FHRP)[https://gakari.tistory.com/entry/%EB%AC%B8-FHRPFirst-Hop-Redundancy-Protocol]
+[FHRP](https://gakari.tistory.com/entry/%EB%AC%B8-FHRPFirst-Hop-Redundancy-Protocol)
 
 
 
