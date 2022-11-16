@@ -32,4 +32,5 @@
 
 ### TO BE CONTINUE...
 1. [HTTP 완벽 가이드](http://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&ejkGb=KOR&barcode=9788966261208) 완독
-2. [TCP/IP가 보이는 그림책](http://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&ejkGb=KOR&barcode=9788931555868) 완독
+2. [IT 엔지니어를 위한 네트워크 입문:클라우드 데브옵스 시대의 필수 역량!](https://www.coupang.com/vp/products/2354444461?itemId=4084810901&vendorItemId=72068812765&src=1042503&spec=10304982&addtag=400&ctag=2354444461&lptag=10304982I4084810901&itime=20221116161120&pageType=PRODUCT&pageValue=2354444461&wPcid=16685826800300039276659&wRef=&wTime=20221116161120&redirect=landing&gclid=CjwKCAiAjs2bBhACEiwALTBWZWyzWethKC4J-rmN_28_O1-uK2GzI7cuPw0JHWAwUDjBVPsCUfyFzBoCCDQQAvD_BwE&campaignid=18626086777&adgroupid=&isAddedCart=) 완독
+3. [클린아키텍쳐](http://www.yes24.com/Product/Goods/77283734) 완독 
