@@ -23,3 +23,6 @@
 - 고수준 모듈이 저수준 모듈의 구현에 의존해서는 안된다.
 - 구체적인 함수나 클래스가 아니라, 인터페이스 등의 추상화에 의존해야한다.
 - 프론트엔드에 적용할만한 지점: 단순한 onSubmit같은 함수도, 상위 모듈에서 Props로 전달받는 식으로 변화시켜 컴포넌트에서 직접 함수를 관리하지 않게끔한다.
+
+개인적으로 굉장히 도움 많이 받은 글: 
+[SOLID Principle in React](https://medium.com/dailyjs/applying-solid-principles-in-react-14905d9c5377)
