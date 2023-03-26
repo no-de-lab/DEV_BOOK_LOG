@@ -1,0 +1,30 @@
+어떻게 완전한 VM 시스템을 만들어낼 수 있을까.
+
+두 가지 시스템을 다뤄볼 수 있다. 
+하나는 현대적 vm manager 중에 가장 초기 버전인 VAX/VMS OS다. 
+다른 하나는 Linux다. 
+## VAX/VMS
+VAX 하드웨어가 효율적인 추상화를 해주어야함에도, 모든 것을 잘 하지는 않아서, VMS가 이를 보완하였다. 
+### Memory Management Hardware
+VAX는 세그멘테이션, 페이징의 하이브리드였다. 
+근데 이 하드웨어 페이지는 너무 작았다. (512byte) 이러면 페이지 테이블 사이즈가 너무 커진다. 
+
+그래서 VMS 디자이너들은, 페이지 테이블이 메모리를 너무 넘어서지 않도록 주의했다. 
+- 유저 주소 공간을 두개로 나누어, 사용되지 않으면 페이지 테이블 공간이 많이 사용되지 않게 하였다.
+  - base, bounds 레지스터 사용
+- OS는 유저 테이블을 커널 가상 메모리에 넣어서, 그것이 늘리거나 줄이거나 스왑하게 하였다. 
+  - 이는 address translation을 더 복잡하게 하였다. 
+    - 복잡함은 TLB에 의해서 더 빨라졌다. 
+### A Real Address Space
+- page 0은 널 포인트를 위한 것.
+- 커널은 각 주소 공간에 매핑된다. 
+- protection bit 있어서 보안
+
+### Page Replacement
+VAX에 reference bit가 없고, memory를 많이 잡아먹는 프로그램이 있는데, LRU는 이를 잡아주지 못한다. 
+- 그래서 segmented FIFO 교체 정책을 이용하여, 각 최대 페이지 개수를 놔두고 그것을 넘게되면 먼저 들어왔던 페이지는 제거된다
+  - FIFO가 이상적이지는 않으므로, VMS는 second chance list를 이용해서, 완전히 페이지를 제거하지 않고 clean page free list, dirty page list 내에 페이지를 집어넣는다.
+  - 만약 다른 프로세스가 어떤 페이지가 필요하면, 이 free list의 첫째 페ㅐ이지를 갖다쓴다.
+- 페이지가 작으니 비효율적인 스왑이 일어난다는 점에서, 클러스터링을 도입. 한번에 변화를 디스크에 write 하게된다. 
+
+### Other Neat Tricks
