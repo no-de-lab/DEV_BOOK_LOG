@@ -28,3 +28,18 @@ VAX에 reference bit가 없고, memory를 많이 잡아먹는 프로그램이 �
 - 페이지가 작으니 비효율적인 스왑이 일어난다는 점에서, 클러스터링을 도입. 한번에 변화를 디스크에 write 하게된다. 
 
 ### Other Neat Tricks
+#### 1. demand zeroing
+heap에 페이지를 하나 추가할 때, OS가 그때그때 페이지 테이블을 초기화하는 것은 비효율.
+그냥 read만 되게끔 OS가 처리해두고, 만일 write 행위가 발생하면, 트랩을 발생시켜서 매핑해준다. 
+#### 2. copy-on-write
+OS가 페이지를 한 주소공간에서 다른 곳으로 복사한다고 했을 때, 그걸 그냥 복사하는 게 아니라 주소만 매핑해준다. 
+
+쓰기 작업이 일어나면 트랩을 발생시켜 OS 호출 -> 새로운 페이지를 할당시켜서 매핑만 해준다. 
+- UNIX 시스템에서 매우 중요. fork(), exec()작업이 있기 때문
+
+## The Linux Virtual Memory System
+user portion, kernel portion으로 나뉜다. 
+
+kernel virtual address에는 두가지 타입의 종류가 이/ㅆ다. 
+- logical
+  
