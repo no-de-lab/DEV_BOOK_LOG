@@ -42,4 +42,22 @@ user portion, kernel portion으로 나뉜다.
 
 kernel virtual address에는 두가지 타입의 종류가 이/ㅆ다. 
 - logical
+  - 연속적
+  - DMA(Directory memory access)
+  - I/O작업
+- virtual
+  - 할당이 조금 더 쉽다. 큰 크기의 버퍼 넣기 가능
+
+페이지 테이블은 64비트 크기로 옮겨갔다.
+
+큰 크기의 페이지를 지원한다. 그러나 이는 역시 내부화 문제로 필요할 때마다 천천히 도입하게된다. 
+
+### 페이지 캐시
+- memory mapped files
+- anonymous memory
+page replacement 전략: 2Q replacement: 두 개의 리스트로 나누어서, inactive, active로 분류한 다음 재할당 -> active로 옮겨간다. 
+
+### 보안
+예전의 OS와 다른 점은 보안에 대해 신경쓴다는 것이다. 
+
   
