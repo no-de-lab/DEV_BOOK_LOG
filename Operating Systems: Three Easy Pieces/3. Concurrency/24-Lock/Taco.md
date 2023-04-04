@@ -49,4 +49,42 @@ mutual exclusion 을 제공하기위한 가장 초기의 방법은, 인터럽트
 - 공정함도 중요하다. 
   - spin lock은 공정하지는 않다.
 - 성능
-  - single cpu:: 
+  - single cpu:: 성능 오버헤드. 만약 선점형이라면 매번 cpu를 돌려주어야한다. 
+  - multiple:: 성능이 나쁘지않다. 
+
+## Compare-And-Swap
+SPARC라고도 불리우는 compare-and-swap
+- test-and-set과 비슷한 lock을 만들 수 있다. 그러나 더 효과적이다. 
+
+## Load-Linked and Store-Conditional
+- load-linked는 그냥 메모리에서 값을 fetch해서 레지스터에 올리는 것이지만
+- store-conditional은 성공하면 1을 반환하지만 아니라면 값이 변하지않는다. 
+
+## Fetch-and-add
+마지막 하드웨어 primitive. 
+- 원자적으로 값을 증가시킨다.
+- 티켓이라는 것을 주어서 lock을 build할 때 함께 사용된다. 
+- 이 티켓은 자신의 차례를 보장하게된다. 
+
+## Too much spinning: What Now?
+- 때로는 비효율적이다. 계속 spin 하며 lock을 기다리는 스레드의 입장은.
+- 그래서 어떻게 필요없이 spin하는 것을 막아볼 수 있을까? OS의 도움이 필요하다. 
+
+## A Simple Approach: Just Yield
+spin 할 것 같으면 그냥 cpu를 다른 스레드에 넘겨준다. 
+- yield는 running-> ready로 바꾸고, 다른 스레드가 run하게 한다. 
+- 그러나, 이는 context switch가 상당할 거라는 것을 예측하지 못했다. 
+- 더불어, 기아 문제도 있다. 
+
+## Using Queues: Sleeping Instead Of Spinning
+- Solaris
+  - park()로 스레드를 sleep하게 하고, unpark로 깨운다. spin 대신에. 
+
+## different Os, Different Support
+- Linus는 futex를 제공
+  - park처럼 futex_wait를 제공한다. 
+
+## Two-Phase locks
+spinning 도 lock이 플릴 때쯤에 쓸모가 있다. 그래서 first phase에서는 lock이 한동안 spin하게 된다. 
+그러나 이 때동안 lock을 얻지 못하면, sleep하게 된다. 
+- hybrid approach
