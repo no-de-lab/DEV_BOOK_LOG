@@ -25,4 +25,23 @@
 ## Concurrent Linked Lists
 조금 더 복잡한 구조인 연결리스트는, insert할 때 lock을 획득하고, exit할 때 내어준다. 
 - 만약 malloc이 실패하면 insert가 실패하기 전에 lock을 내어주어야한다. 
-- exit는 lookup에서만 하도록 만들며 버그를 줄인다. malloc이 스레드-안전하다는 가정으로, 동시적 버그를 일으키지 않는다 생각하고 공유되는 리스트에서의 업데이트만 락을 획득하게 한다. 
+- exit는 lookup에서만 하도록 만들며 버그를 줄인다. malloc이 스레드-안전하다는 가정으로, 동시적 버그를 일으키지 않는다 생각하고 공유되는 리스트에서의 업데이트만 락을 획득하게 한다.
+
+### Scaling Linked Lists
+연결 리스트 또한 확장성이 없다. 연구진들이 이를 위해 연구한 hand-over-hand locking이라는 방식이 있기는 하다. 
+- 전체 리스트에서 single lock 을 가지는 것 대신에, list의 각 노드마다 lock을 추가한다. 
+- list를 순회할 때, 다음 노드의 lock을 잡고, 원래 잡고있던 lock을 놓는 식으로 진행한다.
+- 이는 높은 동시성을 가능하게 하지만, 빠르게 만들기는 어렵다. 
+
+## Concurrent Queues
+big lock을 추가하는 것이 동시 자료 구조의 기본 방법이었다. 
+
+대신, 여기에는 두개의 lock이 있다. 
+- 하나는 head, 다른 하나는 tail
+- 이는 한 방향으로만 enqueue, dequeue가 일어나게끔 한다. 
+- 멀티 스레드 애플리케이션에 많이 사용되지만, 이러한 타입의 큐는 완전히 그 요구사항에 맞지는 않는다. 
+
+## Concurrent Hash Table
+resize를 하지않는 해시 테이블만 다룬다. 
+- 전체 구조에 single lock이 있는 것이 아니라, hash bucket마다 lock이 걸려있다.
+  - 그래서 확장성이 좋다. 
