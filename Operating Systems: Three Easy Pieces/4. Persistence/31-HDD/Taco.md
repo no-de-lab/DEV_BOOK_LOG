@@ -46,4 +46,28 @@ drive는 read, write가 가능한 많은 sector들을 포함한다.
 ## I/O Time: Doing The Math
 - seek > rotational delay > transfer( 데이터 읽고 쓰는 시간 ) 모두를 합쳐 I/O 시간이라 한다.
 - Rate of I/O는 트랜스퍼할 데이터 양 나누기 I/O 시간이다.
-- 
+- random 보다는, sequential이 더 좋은 성능을 보인다.
+- 용량보다는 성능이 더 비싼 가격
+
+## Disk Scheduling
+I/O에 비용이 많이 들기 때문에, OS는 디스크로의 i/o 순서를 정하는 역할을 해왔다. I/O 요청이 들어오면, 디스크 스케줄러가 그 요청을 파악하고 어느 것 다음으로 스케줄링할지를 정한다. 
+
+그런데 job 스케줄링과는 다르게, 각각의 작업 길이는 잘 알려져있지 않다. 우리는 seek, rotaitional delay를 예측함으로써, 스케줄러는 얼마나 요청이 오래 걸릴지를 알 수 있고, 그에 따라 적게 걸릴 것부터 처리한다. 
+- 즉 SJF 원리를 따르려 할 것이다. 
+
+### SSTF: Shortest Seek Time First
+초기의 디스크 스케줄링 접근 하나는 SSTF였다. 트랙으로 I/O 요청을 큐에 넣고, 가까운 트랙부터 처리한다. 
+- 그러나 원형이라는 도형에서 가까운 것을 이지는 하지 못한다. 따라서 OS는 가까운 블록부터 처리하는 걸 시행한다.
+- 그리고 기아를 발생시킬 수 있다. 지속적인 요청 스트림이 들어온다고 가정했을 때, 계속 기다리는 블록들이 생긴다. 
+- 어떻게 이를 해결할 수 있을것인가
+
+### Elevator (a.k.a SCAN or C-SCAN)
+블록 바깥 방향으로 갔다가 다시 돌아오는 것. 
+- F-SCAN: 한 방향으로 갈 때, 해당 블록들을 freeze해서 중간에 블록 추가되더라도 나중에 처리
+- C-SCAN: 바깥에서 안쪽 방향으로만 처리
+- 불행하게도 SCAN 방법이 베스트는 아니다.
+- 어떻게 seek and rotation도 고려하며 SJF에 가깝게 알고리즘을 시행할 수 있을까? 
+
+### SPTF: Shortest Positioning Time First
+- seek, rotational delay 비교해서 더 짧은 시간인 경우 헤드 이동
+- OS가 이를 할 수는 없어서 드라이브 내부에서 이를 계산한다. (OS가 가장 좋은 것 몇몇을 픽하면 디스크가 계산)
