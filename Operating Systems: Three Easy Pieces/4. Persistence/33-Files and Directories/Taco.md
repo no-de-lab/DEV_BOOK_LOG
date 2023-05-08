@@ -53,3 +53,38 @@ program이 write를 호출할 때, 실은 언젠가 영구 저장소에 이를 �
 ### Renaming Files
 - mv 라는 명령어를 통해서 이름을 바꿀 수 잇는데, 이는 사실 rename이라는 시스템콜을 통해 행해진다. 
 - 이는 원자적이다. 
+
+### Getting Info About Files
+- 메타데이터라 불리는, 파일에 관한 데이터가 있다. 
+- stat(), fstat() 명령어로 그를 몰 수 잇다. 
+- 사이즈나, inode number같은 로우레벨 이름이나, 접근 수정 시간같은 것을 볼 수 있다.
+- 각 파일 시스템은 이러한 종류의 정보를 inode 안에 넣는다. 
+
+### Removing Files
+- file 삭제를 위해서 rm 명령어를 사용하는데, 이 때 사용되는 시스템 콜은 unlink다.
+- 왜 언링크인지는 디렉토리를 조금 더 이해해야한다.
+
+### Making Directories
+디렉토리는 파일시스템의 메타데이터로 여겨지기 때문에, 디렉토리를 업데이트 하는 방법은 간접적으로 그 안에 파일을 생성하는 것이다. 
+- mkdir 명령어를 통해 만들 수 있다. 
+
+### Reading Directories
+- directory를 읽을 때, 그냥 파일처럼 오픈하는 게 아니라, opendir, readdir, closedir 만을 사용하고, 디렉토리 내의 파일을 모두 읽어온다.
+
+### Deleting Directories
+- rmdir을 사용하면 되는데 위험하기 때문에 디렉토리가 비어있는 상태라는 조건이 있다. 
+
+### Hard Links
+- link라는 것은 간단하게 디렉토리에 다른 이름을 만들어내서 그것을 기존 어떤 파일과 같은 inode number를 참조하게 한다. 
+- 실제로 파일을 만들 때, 일단 inode 구조를 만들고, 이와 사람이 읽을만한 이름을 연결짓는다. 
+- unlink는 이러한 연결을 끊어낸다. 
+
+### Symbolic Links
+또 다른 링크는 soft link라고도 불리는 symbolic link다.
+- ln -s 로 가능.
+- 이는 링크된 파일이 삭제되면 그것이 가리키고 있던 path도 삭제가 되어 댕글링 참조의 가능성을 남긴다.
+
+### Permission Bits and Access Control Lists
+파일 시스템은 디스크를 가상화한다. raw block들을 유저 친화적으로 바꾸는 것이다. 이는 여러 사용자들과 프로세스들에게 보통 공유된다. 그래서, 그 공유의 수준을 결정하는 매커니즘이 파일 시스템에 있다. 이를 permission bitfk gksek. 
+- 9개의 캐릭터로 그를 구분한다. 3자는 파일 주인, 다음 3자는 그룹, 다음 3자는 그외의 사람이다. 
+- 파일 주인은 파일 모드를 바꿀 수 있다. (chmod)
