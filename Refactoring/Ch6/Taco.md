@@ -115,3 +115,50 @@ function getRating(driver){
 }
 
 ```
+---
+## 3. 변수 추출하기
+반대는 변수를 인라인하는 것이다.
+표현식이 너무나도 복잡해 이해하기가 어려울 때, 지역 변수를 활용해 관리가 쉽게 할 수 있다. 변수를 쪼개기 때문에 디버깅에 도움이 되는 것은 덤이다.
+
+```javascript
+function price(order){
+    return order.quantity * order.itemPrice - 
+        Math.max(0, order.quantity - 500) * order.itemPrice * 0.05 +
+        Math.min(order.quantity * order.itemPrice * 0.1, 100);
+}
+// 위에서 우선 변수를 하나 정리한다
+function price(order){
+    const basePrice = order.quantity * order.itemPrice;
+    const quantityDiscount = Math.max(0, order.quantity - 500) * order.itemPrice * 0.05;
+    const shipping = Math.min(basePrice * 0.1, 100);
+    return basePrice - quantityDiscount + shipping;
+}
+
+// class 문맥 안에서 처리하는 방법
+class Order {
+    constructor(aRecord) {
+        this._data = aRecord;
+    }
+    get quantity(){
+        return this._data.quantity;
+    }
+    get itemPrice(){
+        return this._data.itemPrice;
+    }
+     get price(){
+        return this.basePrice - this.quantityDiscount + this.shipping;
+    }
+    get basePrice() { return this.quantity * this.itemPrice;}
+    get quantityDiscount() { return Math.max(0, this.quantity - 500) * this.itemPrice * 0.05;}
+    get shipping() { return this.quantity * ordthiser.itemPrice * 0.1, 100;}
+}
+
+```
+객체로 구성하면 특정 로직과 데이터를 외부와 공유시 공유할 정보를 설명하는 적당한 크기의 문맥이 되어준다.
+---
+## 4. 변수 인라인하기
+변수는 함수 안에서 표현식을 가리키는 이름으로 쓰이는데 원래 표현식과 다를 바 없을 때도 있다. 또한 주변 코드를 리팩터링하는 데 방해가 되기도 하므로, 그때는 그 변수를 인라인하는 것이 좋다.
+---
+## 5. 함수 선언 바꾸기
+함수의 이름이나 매개변수 모두 이름이 중요하다.
+간단한 절차보다 마이그레이션 절차가 더 적절한 경우가 많다.
