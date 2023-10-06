@@ -162,3 +162,32 @@ class Order {
 ## 5. 함수 선언 바꾸기
 함수의 이름이나 매개변수 모두 이름이 중요하다.
 간단한 절차보다 마이그레이션 절차가 더 적절한 경우가 많다.
+1. 함수 본문 전체를 새로운 함수로 추출한다. 
+```javascript
+function circum(radius){
+    return circumference(radius);
+}
+function circumference(radius){
+    return 2 * Math.PI* radius;
+}
+```
+
+2. 옛 함수를 인라인한다. 
+3. 새 함수의 선언문과 호출문에 원하는 매개변수를 추가한다.
+---
+## 6. 변수 캡슐화하기
+데이터는 함수보다 다루기가 까다롭다. 함수의 이름을 바꾸거나 다른 모듈로 옮기는 건 어렵지않다. 그러나 데이터는 참조하는 모든 부분을 한 번에 바꿔야하기 때문에, 다루기가 어렵다. 마치 전역 데이터가 다루기 어려운 이유와 같다. 
+
+그래서 접근할 수 있는 범위가 넓은 데이터를 옮길 때 먼저 그 데이터로의 접근을 독점하는 함수를 만들도록 캡슐화해야한다.
+```javascript
+let defaultOwner = {firstName: "마틴", lastName: "파울러"};
+//아래와 같이 캡슐화
+let defaultOwner = {firstName: "마틴", lastName: "파울러"};
+export function defaultOwner(){return defaultOwnerData;}
+export function serDefaultOwner(){defaultOwnerData = arg;}
+```
+데이터를 변경하고 사용하는 코드를 감시할 확실한 통로가 되기도 하기 때문에 로직을 쉽게 끼워넣을 수 있다. 
+
+그런데 만약 데이터 내용 변경도 제어하고싶다면 그 값을 바꿀 수 없게 만든다. 
+
+---
