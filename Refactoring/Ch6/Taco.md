@@ -191,3 +191,37 @@ export function serDefaultOwner(){defaultOwnerData = arg;}
 그런데 만약 데이터 내용 변경도 제어하고싶다면 그 값을 바꿀 수 없게 만든다. 
 
 ---
+## 7. 변수 이름 바꾸기
+이름의 중요성은 그 대상의 사용 범위에 영향을 많이 받는다. 
+함수 호출 한 번으로 끝나는 게 아니라, 값이 영속되는 필드라면 이름에 더욱 더 신경을 써야한다. 폭넓게 쓰이는 변수라면 변수 캡슐화를 진행한다. 
+
+---
+## 8. 매개변수 객체 만들기
+데이터 사이의 관계가 명확해진다는 이점이 있다.
+```javascript
+function amountInvoiced(startDate, endDate){}
+// 아래와 같이 변경
+function amountInvoiced(aDateRange){}
+```
+
+---
+## 9. 여러 함수 클래스로 묶기
+
+함수가 표현하는 공통 환경을 더 명확히 표현할 수 있고, 각 함수에 전달되는 인수를 줄여서 객체 안에서의 함수 호출을 간결하게 만들 수 있다. 또한, 이런 객체를 시스템의 다른 부분에 전달하기 위한 참조를 제공할 수 있다. 
+
+---
+## 10. 여러 함수를 변환함수로 묶기
+정보의 도출 로직이 반복되면, 도출 작업들을 한데로 모아두면 로직 중복도 막고, 검색과 갱신을 일관된 장소에서 처리할 수 있다. 
+```javascript
+function base(aReading){}
+function taxableCharge(aReading){}
+
+function enrichReading(argReading){
+    const aReading = _.cloneDeep(argReading);
+    aReading.baseCharge = base(aReading);
+    aReading.taxableCharge = taxableCharge(aReading);
+    return aReading;
+}
+```
+
+이 대신 여러 함수를 클래스로 묶기로 처리해도 된다. 다만 원본 데이터가 코드 안에서 갱신될 때는 클래스로 묶는 편이 훨씬 낫다. 
