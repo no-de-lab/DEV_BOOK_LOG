@@ -366,6 +366,7 @@ _리팩토링 절차_
 
 
 ```javascript
+// 1. 두번째 함수 추출
 function priceOrder(product, quantity, shippingMethod) {
   const basePrice = product.basePrice * quantity;
   const discount = Math.max(quantity - product.discountThreshold, 0) * product.basePrice * product.discountRate;
@@ -383,7 +384,9 @@ function applyShipping(basePrice, shippingMethod, quantity, discount) {
   const price = basePrice - discount + shippingCost;
   return price;
 }
+// =========== //
 
+// 2. 중간 데이터 구조 생성 -> 첫번째 함수 추출
 // 첫번째와 두번째가 주고받을 중간 데이터 구조 생성
 function priceOrder(product, quantity, shippingMethod) {
   const basePrice = product.basePrice * quantity;
@@ -408,8 +411,10 @@ function calculatePricingData(product, quantity) {
   return { basePrice, quantity, discount }; // 중간 데이터 구조 반환
 }
 
+// ========== //
+
 function priceOrder(product, quantity, shippingMethod) {
-  const priceData = calculatePricingData(product, quantity); // 첫번째 단계 함수 호출
+  const priceData = calculatePricingData(product, quantity);
   const price = applyShipping(priceData, shippingMethod);
   return price;
 }
