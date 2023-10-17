@@ -15,3 +15,25 @@
 예를 들면 대상 함수를 호출하는 함수가 무엇이고, 대상 함수가 호출하는 함수는 무엇이고, 대상함수가 사용하는 데이터는 무엇인지 알아야한다. 
 
 ex. 중첩함수 최상위로 옮기기 (옮기면서 새로운 임시 이름을 분리해주면 좋다.)
+
+## 2. 필드 옮기기
+프로그램은 데이터 구조를 어떻게 짰는지에 따라 동작 코드가 단순하고 직관적으로 변한다. 
+
+따라서 가장 적합한 데이터 구조를 알아내는 것이 좋다. 
+레코드의 필드를 옮기는 리팩터링 또한 데이터 구조를 잘 짜는 방법이다.
+```java
+class Customer {
+    get plan() { return this._plan;}
+    get discountRate() {return this._discountRate;}
+}
+// change like below codes
+class Customer {
+    get plan(){ return this._plan;}
+    get discountRate() {return this.plan.discountRate;}
+}
+```
+
+필드를 옮기고 싶다면 제일 먼저 해당 필드를 캡슐화한다. 그 다음 다른 클래스에 해당 필드를 옮기고 테스트한다. 
+
+## 3. 문장을 함수로 옮기기
+같은 코드가 추가로 실행되면 반복되는 부분을 피호출 함수로 합친다. 
